@@ -2,70 +2,67 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthVault | Secure Portfolio</title>
+    <title>WealthVault | Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
         
         .header { 
             padding: 20px; display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid #111; position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            border-bottom: 1px solid #111; sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
         }
-        .greeting { font-weight: 700; font-size: 18px; }
-        .greeting span { color: #a855f7; }
+        .greeting span { color: #a855f7; font-weight: 700; }
 
-        .main-container { padding: 25px; max-width: 500px; margin: auto; }
+        .container { padding: 25px; max-width: 500px; margin: auto; }
         
-        .total-box { 
-            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 30px; border-radius: 16px; 
-            margin-bottom: 30px; box-shadow: 0 4px 30px rgba(168, 85, 247, 0.05);
+        .summary-card { 
+            background: linear-gradient(145deg, #0a0a0a, #111); border: 1px solid #1a1a1a; 
+            padding: 30px; border-radius: 20px; margin-bottom: 30px;
         }
-        .label { color: #666; font-size: 12px; letter-spacing: 1px; font-weight: 600; }
-        .value { font-size: 36px; font-weight: 700; margin: 10px 0; letter-spacing: -1px; }
+        .net-worth { font-size: 38px; font-weight: 700; margin: 10px 0; letter-spacing: -1.5px; }
+        
+        .category-label { color: #444; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin: 25px 0 15px; text-transform: uppercase; }
         
         .asset-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 0; border-bottom: 1px solid #111;
+            background: #050505; border: 1px solid #111; padding: 18px; border-radius: 14px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
         }
-        .asset-info h3 { margin: 0; font-size: 16px; font-weight: 600; }
-        .asset-info p { margin: 4px 0 0; color: #666; font-size: 13px; }
-        
-        .asset-data { text-align: right; }
-        .price { font-weight: 700; font-size: 15px; }
-        .change { font-size: 12px; font-weight: 700; color: #00ffa3; }
+        .asset-name { font-weight: 600; font-size: 15px; }
+        .asset-meta { color: #555; font-size: 12px; margin-top: 2px; }
+        .asset-value { text-align: right; }
+        .growth { color: #00ffa3; font-size: 12px; font-weight: 700; }
 
-        .logout-btn { color: #666; text-decoration: none; font-size: 13px; margin-top: 40px; display: block; text-align: center; }
+        .logout { display: block; text-align: center; margin-top: 40px; color: #333; text-decoration: none; font-size: 13px; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="greeting">Good evening, <span>Partner</span></div>
-        <div style="font-size: 20px;">🔔</div>
+        <div style="font-size: 18px">💎</div>
     </div>
 
-    <div class="main-container">
-        <div class="total-box">
-            <div class="label">TOTAL NET WORTH</div>
-            <div class="value">$1,382,920.50</div>
-            <div style="color: #00ffa3; font-size: 13px; font-weight: 600;">+8.2% Growth</div>
+    <div class="container">
+        <div class="summary-card">
+            <div style="color: #666; font-size: 12px; font-weight: 600;">TOTAL PORTFOLIO VALUE</div>
+            <div class="net-worth">$1,382,920.50</div>
+            <div class="growth">▲ 8.2% ($104,200)</div>
         </div>
 
-        <div class="label" style="margin-bottom: 10px;">PRIVATE HOLDINGS</div>
-        
+        <div class="category-label">Private Holdings</div>
         {% for lead in leads %}
         <div class="asset-row">
-            <div class="asset-info">
-                <h3>{{ lead.Name }}</h3>
-                <p>{{ lead.Title }}</p>
+            <div>
+                <div class="asset-name">{{ lead.Name }}</div>
+                <div class="asset-meta">{{ lead.Title }}</div>
             </div>
-            <div class="asset-data">
-                <div class="price">{{ lead.Company }}</div>
-                <div class="change">{{ lead.Status }}</div>
+            <div class="asset-value">
+                <div style="font-weight: 700;">{{ lead.Company }}</div>
+                <div class="growth">{{ lead.Status }}</div>
             </div>
         </div>
         {% endfor %}
 
-        <a href="/logout" class="logout-btn">Securely Log Out</a>
+        <a href="/logout" class="logout">Terminate Session</a>
     </div>
 </body>
 </html>
