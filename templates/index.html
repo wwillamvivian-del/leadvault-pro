@@ -1,32 +1,56 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadVault Pro</title>
+    <style>
+        /* Base Styling */
+        body { background: #010408; color: white; font-family: 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; overflow-x: hidden; }
+
+        /* AMAZING DYNAMIC BACKGROUND GRID */
+        body::before { content: ""; position: fixed; top: -100px; left: -100px; width: calc(100% + 200px); height: calc(100% + 200px); background-image: 
+            linear-gradient(rgba(0, 210, 255, 0.04) 1px, transparent 1px), 
+            linear-gradient(90deg, rgba(0, 210, 255, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px; background-position: center; animation: gridShift 40s linear infinite; z-index: -2; filter: blur(1px); }
+        @keyframes gridShift { from { background-position: 0 0; } to { background-position: 500px
+
+git add templates/index.html
+git commit -m "Amazing High-Tech Glassmorphism Design Update"
+git push origin main
+
+ls -R
+
+mkdir -p templates
+mv index.html templates/ 2>/dev/null
+cat <<EOF > templates/index.html
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeadVault Pro</title>
     <style>
-        body { background: #05070a; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .search-box { width: 100%; max-width: 350px; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #1e2633; background: #0f141e; color: white; outline: none; }
-        .card { width: 100%; max-width: 350px; background: #0f141e; padding: 20px; border-radius: 20px; border: 1px solid #1e2633; margin-bottom: 15px; text-align: left; }
-        h1 { color: #00d2ff; font-size: 20px; text-align: center; margin-bottom: 20px; }
-        .status { font-size: 10px; color: #00ff88; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .company { color: #888; font-size: 12px; margin-top: 5px; }
+        body { background: #010408; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; overflow-x: hidden; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(rgba(0, 210, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.07) 1px, transparent 1px); background-size: 40px 40px; z-index: -1; animation: grid 20s linear infinite; }
+        @keyframes grid { from { background-position: 0 0; } to { background-position: 40px 40px; } }
+        h1 { color: #00d2ff; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 15px rgba(0, 210, 255, 0.6); }
+        .search-box { width: 100%; max-width: 350px; margin-bottom: 25px; }
+        input { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #00d2ff; background: rgba(15, 20, 30, 0.8); color: white; outline: none; backdrop-filter: blur(10px); }
+        .card { width: 100%; max-width: 350px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(0, 210, 255, 0.2); padding: 20px; border-radius: 20px; margin-bottom: 15px; }
+        .status { font-size: 10px; font-weight: bold; color: #00ff88; text-transform: uppercase; margin-bottom: 8px; }
     </style>
 </head>
 <body>
     <h1>LEADVAULT PRO</h1>
     <form class="search-box" action="/" method="get">
-        <input type="text" name="search" placeholder="Search names or companies..." value="{{ query or '' }}">
+        <input type="text" name="search" placeholder="Scanning Vault..." value="{{ query or '' }}">
     </form>
-
     {% for lead in leads %}
     <div class="card">
         <div class="status">{{ lead.Status }}</div>
-        <div style="font-weight:bold; font-size: 18px;">{{ lead.Name }}</div>
-        <div class="company">{{ lead.Title }} • {{ lead.Company }}</div>
+        <div style="font-size: 20px; font-weight: bold;">{{ lead.Name }}</div>
+        <div style="color: #888;">{{ lead.Title }} • {{ lead.Company }}</div>
     </div>
-    {% else %}
-    <p style="color: #444;">No leads found in the vault.</p>
     {% endfor %}
 </body>
 </html>
