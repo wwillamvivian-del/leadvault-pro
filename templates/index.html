@@ -3,149 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeadVault Pro</title>
+    <title>WealthVault | Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
         body { 
-            background: #000000; 
-            color: #ffffff; 
+            background: #0B0E11; 
+            color: #EAECEF; 
             font-family: 'Inter', sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
             margin: 0; 
             padding: 20px; 
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* THE TOP DESIGN PIECE */
-        .brand-header {
-            margin-top: 40px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #28A745;
-            border-radius: 10px;
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: #28A745;
-            font-weight: 700;
-            margin-bottom: 15px;
-            font-size: 18px;
-            box-shadow: 0 0 15px rgba(40, 167, 69, 0.2);
         }
 
-        h1 { 
-            font-size: 22px; 
-            letter-spacing: -0.5px;
-            margin: 0;
-            font-weight: 700;
-        }
-        
-        .sub-header {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 5px;
-        }
-
-        /* SEARCH AREA */
-        .search-box { width: 100%; max-width: 400px; margin-bottom: 30px; }
-        input { 
-            width: 100%; 
-            padding: 16px; 
-            background: #1c1c1e; 
-            border: 1px solid #2c2c2e; 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            outline: none; 
-            box-sizing: border-box; 
-            font-size: 15px;
-            border-radius: 12px;
-        }
-
-        /* DIRECTORY CARDS */
-        .card { 
-            width: 100%; 
-            max-width: 400px; 
-            background: #1c1c1e; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            box-sizing: border-box;
-            border-radius: 16px;
-            border: 1px solid #2c2c2e;
-        }
-        
-        .status-tag { 
-            font-size: 10px; 
-            text-transform: uppercase; 
-            color: #28A745; 
-            font-weight: 700; 
-            background: rgba(40, 167, 69, 0.1);
-            padding: 4px 8px;
-            border-radius: 6px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        
-        .name { 
-            font-size: 18px; 
-            font-weight: 600; 
-            margin-bottom: 8px; 
-            display: block; 
-        }
-        
-        .info-row { color: #8e8e93; font-size: 13px; margin-top: 4px; }
-        .label { color: #555; font-weight: 600; margin-right: 4px; }
-
-        .btn-container {
-            margin-top: 30px;
+        /* PORTFOLIO SUMMARY */
+        .summary-card {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
+            background: linear-gradient(135deg, #1E2329 0%, #0B0E11 100%);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid #2B3139;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            text-align: left;
         }
 
-        .buy-btn {
-            display: block;
-            background: #ffffff;
-            color: #000000;
-            padding: 16px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 12px;
-            text-align: center;
+        .summary-label { font-size: 12px; color: #848E9C; text-transform: uppercase; letter-spacing: 1px; }
+        .summary-value { font-size: 32px; font-weight: 700; margin: 10px 0; color: #FFFFFF; }
+        .growth { color: #00C087; font-weight: 600; font-size: 14px; }
+
+        /* ASSET GRID */
+        .asset-card {
+            width: 100%;
+            max-width: 450px;
+            background: #181A20;
+            border: 1px solid #2B3139;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
         }
+        .asset-card:hover { transform: scale(1.02); border-color: #474D57; }
+
+        .asset-info { display: flex; flex-direction: column; }
+        .asset-name { font-weight: 700; font-size: 16px; color: #FFFFFF; }
+        .asset-desc { font-size: 12px; color: #848E9C; margin-top: 4px; }
+
+        .asset-stats { text-align: right; }
+        .asset-price { font-weight: 600; font-size: 16px; display: block; }
+        .asset-change { font-size: 12px; font-weight: 700; }
+        
+        .up { color: #00C087; }
+        .down { color: #F6465D; }
+
+        .nav-bar { width: 100%; max-width: 450px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 18px; color: #F0B90B; } /* Gold logo */
     </style>
 </head>
 <body>
-    <div class="brand-header">
-        <div class="logo-icon">LV</div>
-        <h1>Executive Directory</h1>
-        <div class="sub-header">Market Intelligence Platform</div>
+    <div class="nav-bar">
+        <div class="logo">WealthVault.</div>
+        <div style="font-size: 20px;">🔔</div>
     </div>
-    
-    <form class="search-box" action="/" method="get">
-        <input type="text" name="search" placeholder="Search verified contacts..." value="{{ query or '' }}">
-    </form>
+
+    <div class="summary-card">
+        <div class="summary-label">Total Portfolio Value</div>
+        <div class="summary-value">$1,382,920.50</div>
+        <div class="growth">▲ +8.2% ($104,200)</div>
+    </div>
+
+    <div style="width: 100%; max-width: 450px; margin-bottom: 15px; font-weight: 600; font-size: 14px; color: #848E9C;">
+        Market Holdings
+    </div>
 
     {% for lead in leads %}
-    <div class="card">
-        <div class="status-tag">{{ lead.Status }}</div>
-        <span class="name">{{ lead.Name }}</span>
-        <div class="info-row"><span class="label">POS:</span> {{ lead.Title }}</div>
-        <div class="info-row"><span class="label">ORG:</span> {{ lead.Company }}</div>
+    <div class="asset-card">
+        <div class="asset-info">
+            <span class="asset-name">{{ lead.Name }}</span>
+            <span class="asset-desc">{{ lead.Title }}</span>
+        </div>
+        <div class="asset-stats">
+            <span class="asset-price">{{ lead.Company }}</span>
+            <span class="asset-change {% if '+' in lead.Status %}up{% else %}down{% endif %}">
+                {{ lead.Status }}
+            </span>
+        </div>
     </div>
     {% endfor %}
 
-    <div class="btn-container">
-        <a href="mailto:YOUR_ACTUAL_EMAIL@GMAIL.COM" class="buy-btn">Acquire Full Database</a>
-    </div>
+    <a href="/admin_portal_77" style="margin-top: 30px; color: #848E9C; text-decoration: none; font-size: 12px;">Manage Assets</a>
 </body>
 </html>
