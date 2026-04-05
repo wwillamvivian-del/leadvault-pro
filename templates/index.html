@@ -1,19 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthVault | Secure Portfolio</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; padding: 20px; }
-        .card { background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #1a1a1a; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        
+        .header { 
+            padding: 20px; display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #111; position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+        }
+        .greeting { font-weight: 700; font-size: 18px; }
+        .greeting span { color: #a855f7; }
+
+        .main-container { padding: 25px; max-width: 500px; margin: auto; }
+        
+        .total-box { 
+            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 30px; border-radius: 16px; 
+            margin-bottom: 30px; box-shadow: 0 4px 30px rgba(168, 85, 247, 0.05);
+        }
+        .label { color: #666; font-size: 12px; letter-spacing: 1px; font-weight: 600; }
+        .value { font-size: 36px; font-weight: 700; margin: 10px 0; letter-spacing: -1px; }
+        
+        .asset-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #111;
+        }
+        .asset-info h3 { margin: 0; font-size: 16px; font-weight: 600; }
+        .asset-info p { margin: 4px 0 0; color: #666; font-size: 13px; }
+        
+        .asset-data { text-align: right; }
+        .price { font-weight: 700; font-size: 15px; }
+        .change { font-size: 12px; font-weight: 700; color: #00ffa3; }
+
+        .logout-btn { color: #666; text-decoration: none; font-size: 13px; margin-top: 40px; display: block; text-align: center; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <p style="color:#888">TOTAL NET WORTH</p>
-        <h1>$1,382,920.50</h1>
+    <div class="header">
+        <div class="greeting">Good evening, <span>Partner</span></div>
+        <div style="font-size: 20px;">🔔</div>
     </div>
-    <h3>Private Holdings</h3>
-    {% for lead in leads %}<p>{{ lead.Name }}: {{ lead.Company }}</p>{% endfor %}
-    <a href="/logout" style="color:#a855f7">Log Out</a>
+
+    <div class="main-container">
+        <div class="total-box">
+            <div class="label">TOTAL NET WORTH</div>
+            <div class="value">$1,382,920.50</div>
+            <div style="color: #00ffa3; font-size: 13px; font-weight: 600;">+8.2% Growth</div>
+        </div>
+
+        <div class="label" style="margin-bottom: 10px;">PRIVATE HOLDINGS</div>
+        
+        {% for lead in leads %}
+        <div class="asset-row">
+            <div class="asset-info">
+                <h3>{{ lead.Name }}</h3>
+                <p>{{ lead.Title }}</p>
+            </div>
+            <div class="asset-data">
+                <div class="price">{{ lead.Company }}</div>
+                <div class="change">{{ lead.Status }}</div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <a href="/logout" class="logout-btn">Securely Log Out</a>
+    </div>
 </body>
 </html>
