@@ -4,28 +4,21 @@ import os
 
 app = Flask(__name__)
 
-def get_leads(query=None):
-    leads = []
-    if not os.path.exists('leads.csv'):
-        return leads
-    with open('leads.csv', mode='r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if not query:
-                leads.append(row)
-            else:
-                # This searches Names, Titles, and Companies all at once
-                search_text = f"{row['Name']} {row['Title']} {row['Company']}".lower()
-                if query.lower() in search_text:
-                    leads.append(row)
-    return leads
-
 @app.route('/')
 def home():
-    search_query = request.args.get('search')
-    results = get_leads(search_query)
-    return render_template('index.html', leads=results, query=search_query)
+    leads = []
+    if os.path.exists('leads.csv'):
+        with open('leads.csv', mode='r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            leads = list(reader)
+    
+    query = request.args.get('search', '')
+    if query:
+        leads = [l for l in leads if query.lower() in str(l).lower()]
+        
+    return render_template('index.html', leads=leads, query=query)
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
+    # CRITICAL FIX: Render needs the port to be set by the environment
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
