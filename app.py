@@ -1,24 +1,69 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import csv
-import os
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
+def get_leads():
     leads = []
-    if os.path.exists('leads.csv'):
-        with open('leads.csv', mode='r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            leads = list(reader)
-    
-    query = request.args.get('search', '')
-    if query:
-        leads = [l for l in leads if query.lower() in str(l).lower()]
-        
-    return render_template('index.html', leads=leads, query=query)
+    try:
+        with open('leads.csv', mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                leads.append(row)
+    except FileNotFoundError:
+        pass
+    return leads
 
-if __name__ == '__main__':
-    # CRITICAL FIX: Render needs the port to be set by the environment
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+@app.route('/')
+def index():
+    query = request.args.get('search', '').lower()
+    all_leads = get_leads()
+    if query:
+        filtered_leads = [l for l in all_leads if query in l['Name'].lower() or query in l['Company'].lower()]
+        return render_template('index.html', leads=filtered_leads, query=query)
+    return render_template('index.html', leads=all_leads)
+
+# THE SECRET ADMIN PORTAL
+@app.route('/admin_portal_77', methods=['GET', 'POST'])
+def admin():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        title = request.form.get('title')
+        company = request.form.get('company')
+        status = request.form.get('status', 'Verified')
+        
+        with open('leads.csv', mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([status, name, title, company])
+        return redirect('/admin_portal_77')
+    
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body { background: #000; color: #28A745; font-family: sans-serif; padding: 20px; text-align: center; }
+            input, button { width: 100%; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #28A745; background: #111; color: white; box-sizing: border-box; }
+            button { background: #28A745; color: black; font-weight: bold; cursor: pointer; }
+        </style>
+    </head>
+    <body>
+        <h2>ADMIN PORTAL</h2>
+        <form method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="text" name="title" placeholder="Job Title" required>
+            <input type="text" name="company" placeholder="Organization" required>
+            <select name="status" style="width:100%; padding:15px; background:#111; color:white; border:1px solid #28A745; border-radius:8px;">
+                <option value="Verified">Verified</option>
+                <option value="Pending">Pending</option>
+            </select>
+            <button type="submit">ADD TO DATABASE</button>
+        </form>
+        <br><a href="/" style="color: #666; text-decoration: none;">View Public Site</a>
+    </body>
+    </html>
+    '''
+
+if __name__ == "__main__":
+    app.run(debug=True)
