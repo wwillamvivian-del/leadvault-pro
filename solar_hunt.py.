@@ -1,0 +1,53 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import time
+import random
+
+def enrich_solar_leads():
+    # Load your successful Wikipedia list from your Documents folder
+    input_path = '/sdcard/Documents/solar_leads_bulk.csv'
+    output_path = '/sdcard/Documents/enriched_solar_leads.csv'
+    
+    try:
+        df = pd.read_csv(input_path)
+        # We start with the first 20 to test the connection
+        targets = df['Company'].head(20).tolist()
+        enriched = []
+
+        print(f"🎯 Starting enrichment for {len(targets)} companies...")
+
+        for company in targets:
+            # Searching for the official site and location
+            query = f"{company} solar official website headquarters"
+            url = f"https://html.duckduckgo.com/html/?q={query.replace(' ', '+')}"
+            
+            headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 11)'}
+            
+            # Human-like delay to prevent 403 errors
+            time.sleep(random.uniform(8, 12)) 
+            
+            res = requests.get(url, headers=headers, timeout=15)
+            if res.status_code == 200:
+                soup = BeautifulSoup(res.content, 'html.parser')
+                link = soup.find('a', class_='result__a')
+                snippet = soup.find('a', class_='result__snippet')
+                
+                website = link['href'] if link else "Manual Search Needed"
+                details = snippet.get_text() if snippet else "No details found"
+                
+                enriched.append({"Company": company, "Website": website, "Details": details})
+                print(f"✅ Found: {company}")
+            else:
+                print(f"⚠️ Blocked on {company}. Toggle Airplane Mode!")
+                break
+
+        if enriched:
+            pd.DataFrame(enriched).to_csv(output_path, index=False)
+            print(f"\n🔥 SUCCESS! Enriched file saved to: {output_path}")
+
+    except Exception as e:
+        print(f"⚠️ Error: {e}")
+
+if __name__ == "__main__":
+    enrich_solar_leads()
