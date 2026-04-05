@@ -3,127 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeadVault Pro | HUD</title>
+    <title>LeadVault Pro | Executive</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;500&display=swap');
         
         body { 
-            background: #020202; 
-            color: #D4AF37; 
-            font-family: 'Roboto Mono', monospace; 
+            background: #FFFFFF; 
+            color: #1a1a1a; 
+            font-family: 'Inter', sans-serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
             padding: 20px; 
-            overflow-x: hidden; 
-        }
-
-        /* WARM GOLD SCANNING ANIMATION */
-        body::after { 
-            content: ""; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 2px; 
-            background: rgba(212, 175, 55, 0.4); 
-            box-shadow: 0 0 15px #FFD700; 
-            animation: scan 4s linear infinite; 
-            z-index: 10; 
-            pointer-events: none; 
-        }
-        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
-
-        /* GRID BACKGROUND */
-        body::before { 
-            content: ""; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px); 
-            background-size: 20px 20px; 
-            z-index: -1; 
         }
 
         /* HEADER */
         h1 { 
-            font-size: 20px; 
-            letter-spacing: 5px; 
-            margin-top: 30px; 
-            border-bottom: 2px solid #D4AF37; 
-            padding-bottom: 10px; 
-            text-shadow: 0 0 10px #FFD700; 
-            text-transform: uppercase; 
-            color: #FFD700; 
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; 
+            letter-spacing: 2px; 
+            margin-top: 40px; 
+            color: #D4AF37;
+            text-transform: uppercase;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 5px;
         }
 
         /* SEARCH BOX */
-        .search-box { width: 100%; max-width: 380px; margin-bottom: 40px; }
+        .search-box { width: 100%; max-width: 400px; margin-bottom: 40px; }
         input { 
             width: 100%; 
-            padding: 12px; 
-            background: rgba(212, 175, 55, 0.05); 
-            border: 1px solid #D4AF37; 
-            color: #FFD700; 
-            font-family: 'Roboto Mono', monospace; 
+            padding: 15px; 
+            background: #f9f9f9; 
+            border: 1px solid #e0e0e0; 
+            color: #1a1a1a; 
+            font-family: 'Inter', sans-serif; 
             outline: none; 
             box-sizing: border-box; 
-            text-transform: uppercase; 
-            font-size: 12px; 
+            font-size: 14px;
+            border-radius: 4px;
+            transition: border 0.3s;
         }
-        input::placeholder { color: rgba(212, 175, 55, 0.4); }
+        input:focus { border: 1px solid #D4AF37; }
 
-        /* LEAD CARD */
+        /* LUXURY CARD */
         .card { 
             width: 100%; 
-            max-width: 380px; 
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(2, 2, 2, 0.5) 100%); 
-            border: 1px solid rgba(212, 175, 55, 0.3); 
-            padding: 20px; 
+            max-width: 400px; 
+            background: #ffffff; 
+            border: 1px solid #e0e0e0; 
+            padding: 25px; 
             margin-bottom: 20px; 
             position: relative; 
             box-sizing: border-box; 
-            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #D4AF37; /* The Gold Accent Stripe */
         }
-        .card:hover { 
-            border: 1px solid #FFD700; 
-            background: rgba(212, 175, 55, 0.1); 
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); 
+        
+        .status { 
+            font-size: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            margin-bottom: 10px; 
+            color: #D4AF37; 
+            font-weight: 700; 
         }
-
-        /* GILDED CORNERS */
-        .card::before { content: ""; position: absolute; top: -2px; left: -2px; width: 15px; height: 15px; border-top: 2px solid #FFD700; border-left: 2px solid #FFD700; }
-        .card::after { content: ""; position: absolute; bottom: -2px; right: -2px; width: 15px; height: 15px; border-bottom: 2px solid #FFD700; border-right: 2px solid #FFD700; }
-
-        /* DETAILS */
-        .status { font-size: 9px; margin-bottom: 10px; color: #D4AF37; font-weight: bold; }
+        
         .name { 
-            font-size: 18px; 
-            font-weight: 500; 
-            margin-bottom: 5px; 
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; 
+            font-weight: 700; 
+            margin-bottom: 8px; 
             display: block; 
-            color: #FFD700; 
-            text-shadow: 0 0 3px #FFD700; 
+            color: #1a1a1a; 
         }
-        .details { color: rgba(212, 175, 55, 0.7); font-size: 12px; line-height: 1.5; }
+        
+        .details { 
+            color: #666666; 
+            font-size: 13px; 
+            line-height: 1.6; 
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        
+        .org-label { color: #D4AF37; font-weight: 600; font-size: 11px; }
     </style>
 </head>
 <body>
-    <h1>Database Access</h1>
+    <h1>Executive Database</h1>
     
     <form class="search-box" action="/" method="get">
-        <input type="text" name="search" placeholder="Enter security query..." value="{{ query or '' }}">
+        <input type="text" name="search" placeholder="Search verified assets..." value="{{ query or '' }}">
     </form>
 
     {% for lead in leads %}
     <div class="card">
-        <div class="status">ID_VERIFIED: {{ lead.Status }}</div>
-        <span class="name">>> {{ lead.Name }}</span>
-        <div class="details">POS: {{ lead.Title }}<br>ORG: {{ lead.Company }}</div>
+        <div class="status">{{ lead.Status }}</div>
+        <span class="name">{{ lead.Name }}</span>
+        <div class="details">
+            <span class="org-label">POSITION:</span> {{ lead.Title }}<br>
+            <span class="org-label">ORGANIZATION:</span> {{ lead.Company }}
+        </div>
     </div>
     {% endfor %}
 </body>
