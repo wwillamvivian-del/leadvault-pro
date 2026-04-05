@@ -1,33 +1,5 @@
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
-stats = {"visits": 0, "clicks": 0}
-
-@app.route('/')
-def home():
-    stats["visits"] += 1
-    return render_template('index.html')
-
-@app.route('/click')
-def click():
-    stats["clicks"] += 1
-    return "<h3>Redirecting to Secure Payment Vault...</h3>"
-
-@app.route('/admin')
-def admin():
-    return f"""
-    <body style="font-family:sans-serif; padding:20px; background:#0d1117; color:white;">
-        <h1 style="color:#00ff88;">Owner Dashboard</h1>
-        <hr>
-        <h3>Live Stats:</h3>
-        <p><b>Total Visitors:</b> {stats['visits']}</p>
-        <p><b>Button Clicks:</b> {stats['clicks']}</p>
-        <br>
-        <a href="/" style="color:#00d2ff;">View Main Site</a>
-    </body>
-    """
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
