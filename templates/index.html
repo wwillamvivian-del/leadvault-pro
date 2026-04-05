@@ -1,39 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeadVault Pro</title>
+    <title>LeadVault Pro | HUD</title>
     <style>
-        body { background: #010408; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        
-        /* THE MOVING GRID */
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(rgba(0, 210, 255, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.08) 1px, transparent 1px); background-size: 40px 40px; z-index: -1; animation: grid 20s linear infinite; }
-        @keyframes grid { from { background-position: 0 0; } to { background-position: 40px 40px; } }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;500&display=swap');
 
-        h1 { color: #00d2ff; text-transform: uppercase; letter-spacing: 3px; margin-top: 40px; text-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
-        
-        .search-box { width: 100%; max-width: 350px; margin-bottom: 30px; }
-        input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(0, 210, 255, 0.3); background: rgba(15, 20, 30, 0.9); color: white; outline: none; box-sizing: border-box; }
+        body { background: #000; color: #00d2ff; font-family: 'Roboto Mono', monospace; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; overflow-x: hidden; }
 
-        /* FIXED GLASS CARDS */
-        .card { width: 100%; max-width: 350px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; margin-bottom: 15px; box-sizing: border-box; text-align: left; }
+        /* HUD SCANNING LINE */
+        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: rgba(0, 210, 255, 0.2); box-shadow: 0 0 15px #00d2ff; animation: scan 4s linear infinite; z-index: 10; pointer-events: none; }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+
+        /* THE GRID (Static/Faint) */
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px); background-size: 20px 20px; z-index: -1; }
+
+        h1 { font-size: 20px; letter-spacing: 5px; margin-top: 30px; border-bottom: 1px solid #00d2ff; padding-bottom: 10px; text-shadow: 0 0 10px #00d2ff; }
+
+        .search-box { width: 100%; max-width: 380px; margin-bottom: 40px; }
+        input { width: 100%; padding: 12px; background: transparent; border: 1px solid #00d2ff; color: #00d2ff; font-family: 'Roboto Mono', monospace; outline: none; box-sizing: border-box; text-transform: uppercase; font-size: 12px; }
+        input::placeholder { color: rgba(0, 210, 255, 0.3); }
+
+        /* HUD CARD WITH VIEW-FINDER CORNERS */
+        .card { width: 100%; max-width: 380px; background: rgba(0, 210, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.2); padding: 20px; margin-bottom: 20px; position: relative; box-sizing: border-box; }
         
-        .status { font-size: 10px; font-weight: bold; color: #00ff88; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
-        .name { font-size: 20px; font-weight: bold; margin: 5px 0; display: block; }
-        .details { color: #aaa; font-size: 13px; }
+        /* The Bracket Corners */
+        .card::before { content: ""; position: absolute; top: -2px; left: -2px; width: 15px; height: 15px; border-top: 2px solid #00d2ff; border-left: 2px solid #00d2ff; }
+        .card::after { content: ""; position: absolute; bottom: -2px; right: -2px; width: 15px; height: 15px; border-bottom: 2px solid #00d2ff; border-right: 2px solid #00d2ff; }
+
+        .status { font-size: 9px; margin-bottom: 10px; color: #00ff88; }
+        .name { font-size: 18px; font-weight: 500; margin-bottom: 5px; display: block; }
+        .details { color: rgba(0, 210, 255, 0.6); font-size: 12px; }
+        
+        .footer-tag { font-size: 10px; color: rgba(0, 210, 255, 0.3); margin-top: 20px; }
     </style>
 </head>
 <body>
-    <h1>LEADVAULT PRO</h1>
+    <h1>DATABASE_ACCESS</h1>
     <form class="search-box" action="/" method="get">
-        <input type="text" name="search" placeholder="Scanning leads..." value="{{ query or '' }}">
-    </form>
+        <input type="text" name="search"
 
+git add templates/index.html
+git commit -m "Cyber HUD design upgrade"
+git push origin main
+
+git add templates/index.html
+git commit --allow-empty -m "Triggering HUD deployment"
+git push origin main
+
+grep "DATABASE_ACCESS" templates/index.html
+
+mkdir -p templates
+
+cat <<'EOF' > templates/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadVault Pro | HUD</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;500&display=swap');
+        body { background: #000; color: #00d2ff; font-family: 'Roboto Mono', monospace; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; overflow-x: hidden; }
+        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: rgba(0, 210, 255, 0.2); box-shadow: 0 0 15px #00d2ff; animation: scan 4s linear infinite; z-index: 10; pointer-events: none; }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px); background-size: 20px 20px; z-index: -1; }
+        h1 { font-size: 20px; letter-spacing: 5px; margin-top: 30px; border-bottom: 1px solid #00d2ff; padding-bottom: 10px; text-shadow: 0 0 10px #00d2ff; }
+        .search-box { width: 100%; max-width: 380px; margin-bottom: 40px; }
+        input { width: 100%; padding: 12px; background: transparent; border: 1px solid #00d2ff; color: #00d2ff; font-family: 'Roboto Mono', monospace; outline: none; box-sizing: border-box; text-transform: uppercase; font-size: 12px; }
+        .card { width: 100%; max-width: 380px; background: rgba(0, 210, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.2); padding: 20px; margin-bottom: 20px; position: relative; box-sizing: border-box; }
+        .card::before { content: ""; position: absolute; top: -2px; left: -2px; width: 15px; height: 15px; border-top: 2px solid #00d2ff; border-left: 2px solid #00d2ff; }
+        .card::after { content: ""; position: absolute; bottom: -2px; right: -2px; width: 15px; height: 15px; border-bottom: 2px solid #00d2ff; border-right: 2px solid #00d2ff; }
+        .status { font-size: 9px; margin-bottom: 10px; color: #00ff88; }
+        .name { font-size: 18px; font-weight: 500; margin-bottom: 5px; display: block; }
+        .details { color: rgba(0, 210, 255, 0.6); font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>DATABASE_ACCESS</h1>
+    <form class="search-box" action="/" method="get">
+        <input type="text" name="search" placeholder="Enter security query..." value="{{ query or '' }}">
+    </form>
     {% for lead in leads %}
     <div class="card">
-        <div class="status">{{ lead.Status }}</div>
-        <span class="name">{{ lead.Name }}</span>
-        <div class="details">{{ lead.Title }} • {{ lead.Company }}</div>
+        <div class="status">ID_VERIFIED: {{ lead.Status }}</div>
+        <span class="name">>> {{ lead.Name }}</span>
+        <div class="details">POS: {{ lead.Title }}<br>ORG: {{ lead.Company }}</div>
     </div>
     {% endfor %}
 </body>
