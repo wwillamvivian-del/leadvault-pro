@@ -9,7 +9,7 @@
         
         .header { 
             padding: 20px; display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 1px solid #111; sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            border-bottom: 1px solid #111; position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 100;
         }
         .greeting span { color: #a855f7; font-weight: 700; }
 
@@ -17,20 +17,21 @@
         
         .summary-card { 
             background: linear-gradient(145deg, #0a0a0a, #111); border: 1px solid #1a1a1a; 
-            padding: 30px; border-radius: 20px; margin-bottom: 30px;
+            padding: 30px; border-radius: 20px; margin-bottom: 20px;
         }
         .net-worth { font-size: 38px; font-weight: 700; margin: 10px 0; letter-spacing: -1.5px; }
         
-        .category-label { color: #444; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin: 25px 0 15px; text-transform: uppercase; }
+        .section-label { color: #444; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin: 30px 0 15px; text-transform: uppercase; }
         
-        .asset-row {
+        .row {
             background: #050505; border: 1px solid #111; padding: 18px; border-radius: 14px;
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
         }
-        .asset-name { font-weight: 600; font-size: 15px; }
-        .asset-meta { color: #555; font-size: 12px; margin-top: 2px; }
-        .asset-value { text-align: right; }
-        .growth { color: #00ffa3; font-size: 12px; font-weight: 700; }
+        .row-info h3 { margin: 0; font-size: 15px; font-weight: 600; }
+        .row-info p { margin: 2px 0 0; color: #555; font-size: 12px; }
+        
+        .transfer-in { color: #00ffa3; font-weight: 700; }
+        .transfer-icon { width: 35px; height: 35px; background: #111; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px; border: 1px solid #222; }
 
         .logout { display: block; text-align: center; margin-top: 40px; color: #333; text-decoration: none; font-size: 13px; }
     </style>
@@ -38,31 +39,55 @@
 <body>
     <div class="header">
         <div class="greeting">Good evening, <span>Partner</span></div>
-        <div style="font-size: 18px">💎</div>
+        <div style="font-size: 18px">⚙️</div>
     </div>
 
     <div class="container">
         <div class="summary-card">
-            <div style="color: #666; font-size: 12px; font-weight: 600;">TOTAL PORTFOLIO VALUE</div>
+            <div style="color: #666; font-size: 12px; font-weight: 600;">TOTAL ASSETS</div>
             <div class="net-worth">$1,382,920.50</div>
-            <div class="growth">▲ 8.2% ($104,200)</div>
+            <div style="color: #00ffa3; font-size: 12px; font-weight: 700;">▲ 8.2% Active Growth</div>
         </div>
 
-        <div class="category-label">Private Holdings</div>
+        <div class="section-label">Active Portfolio</div>
         {% for lead in leads %}
-        <div class="asset-row">
-            <div>
-                <div class="asset-name">{{ lead.Name }}</div>
-                <div class="asset-meta">{{ lead.Title }}</div>
+        <div class="row">
+            <div class="row-info">
+                <h3>{{ lead.Name }}</h3>
+                <p>{{ lead.Title }}</p>
             </div>
-            <div class="asset-value">
+            <div style="text-align: right;">
                 <div style="font-weight: 700;">{{ lead.Company }}</div>
-                <div class="growth">{{ lead.Status }}</div>
+                <div style="color: #00ffa3; font-size: 12px;">{{ lead.Status }}</div>
             </div>
         </div>
         {% endfor %}
 
-        <a href="/logout" class="logout">Terminate Session</a>
+        <div class="section-label">Recent Transfers</div>
+        
+        <div class="row">
+            <div style="display: flex; align-items: center;">
+                <div class="transfer-icon">📥</div>
+                <div class="row-info">
+                    <h3>Internal Deposit</h3>
+                    <p>Yesterday, 4:12 PM</p>
+                </div>
+            </div>
+            <div class="transfer-in">+$12,500.00</div>
+        </div>
+
+        <div class="row">
+            <div style="display: flex; align-items: center;">
+                <div class="transfer-icon">💳</div>
+                <div class="row-info">
+                    <h3>Dividend Payout</h3>
+                    <p>April 2, 2026</p>
+                </div>
+            </div>
+            <div class="transfer-in">+$3,240.12</div>
+        </div>
+
+        <a href="/logout" class="logout">Terminate Secure Session</a>
     </div>
 </body>
 </html>
