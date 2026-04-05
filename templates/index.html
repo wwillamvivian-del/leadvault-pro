@@ -7,10 +7,10 @@
         body { background: #05070a; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
         .search-box { width: 100%; max-width: 350px; margin-bottom: 20px; }
         input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #1e2633; background: #0f141e; color: white; outline: none; }
-        .card { width: 100%; max-width: 350px; background: #0f141e; padding: 20px; border-radius: 20px; border: 1px solid #1e2633; margin-bottom: 15px; }
+        .card { width: 100%; max-width: 350px; background: #0f141e; padding: 20px; border-radius: 20px; border: 1px solid #1e2633; margin-bottom: 15px; text-align: left; }
         h1 { color: #00d2ff; font-size: 20px; text-align: center; margin-bottom: 20px; }
-        .status { font-size: 10px; color: #00ff88; margin-bottom: 5px; }
-        .company { color: #888; font-size: 12px; }
+        .status { font-size: 10px; color: #00ff88; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .company { color: #888; font-size: 12px; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -22,15 +22,11 @@
     {% for lead in leads %}
     <div class="card">
         <div class="status">{{ lead.Status }}</div>
-        <div style="font-weight:bold;">{{ lead.Name }}</div>
-        <div class="company">{{ lead.Title }} at {{ lead.Company }}</div>
-
-git add
-git commit -m "Added search and CSV database"
-git push origin main
-cat <<EOF > leads.csv
-Name,Title,Company,Status
-James Anderson,CEO,TechFlow Solutions,Verified
-Sarah Chen,CTO,CloudScale,Pending
-Michael Rose,Director,Global Logistics,Verified
-Elena Rodriguez,Founder,AI Nexus,Verified
+        <div style="font-weight:bold; font-size: 18px;">{{ lead.Name }}</div>
+        <div class="company">{{ lead.Title }} • {{ lead.Company }}</div>
+    </div>
+    {% else %}
+    <p style="color: #444;">No leads found in the vault.</p>
+    {% endfor %}
+</body>
+</html>
