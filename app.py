@@ -10,7 +10,6 @@ def get_leads():
         with open('leads.csv', mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['Status', 'Name', 'Title', 'Company'])
-    
     with open('leads.csv', mode='r') as file:
         reader = csv.DictReader(file)
         for row in reader:
@@ -29,16 +28,12 @@ def index():
 @app.route('/admin_portal_77', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
-        name = request.form.get('name')
-        title = request.form.get('title')
-        company = request.form.get('company')
+        name, title, company = request.form.get('name'), request.form.get('title'), request.form.get('company')
         status = request.form.get('status', 'Verified')
-        
         with open('leads.csv', mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([status, name, title, company])
         return redirect('/admin_portal_77')
-    
     return '''
     <!DOCTYPE html>
     <html lang="en">
@@ -56,10 +51,7 @@ def admin():
             <input type="text" name="name" placeholder="Full Name" required>
             <input type="text" name="title" placeholder="Job Title" required>
             <input type="text" name="company" placeholder="Organization" required>
-            <select name="status">
-                <option value="Verified">Verified</option>
-                <option value="Pending">Pending</option>
-            </select>
+            <select name="status"><option value="Verified">Verified</option><option value="Pending">Pending</option></select>
             <button type="submit">ADD TO DATABASE</button>
         </form>
         <br><a href="/" style="color: #666; text-decoration: none;">← Back to Site</a>
