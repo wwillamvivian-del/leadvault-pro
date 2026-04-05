@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
@@ -15,5 +16,5 @@ def click():
     return "<h3>Redirecting to Secure Payment Vault...</h3>"
 
 if __name__ == '__main__':
+    # We use port 10000 specifically for Render
     app.run(host='0.0.0.0', port=10000)
-
