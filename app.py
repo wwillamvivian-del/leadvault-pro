@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, redirect
 import csv
+import os
 
 app = Flask(__name__)
 
 def get_leads():
     leads = []
-    try:
-        with open('leads.csv', mode='r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                leads.append(row)
-    except FileNotFoundError:
-        pass
+    if not os.path.exists('leads.csv'):
+        with open('leads.csv', mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Status', 'Name', 'Title', 'Company'])
+    
+    with open('leads.csv', mode='r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            leads.append(row)
     return leads
 
 @app.route('/')
@@ -23,7 +26,6 @@ def index():
         return render_template('index.html', leads=filtered_leads, query=query)
     return render_template('index.html', leads=all_leads)
 
-# THE SECRET ADMIN PORTAL
 @app.route('/admin_portal_77', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
@@ -44,7 +46,7 @@ def admin():
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body { background: #000; color: #28A745; font-family: sans-serif; padding: 20px; text-align: center; }
-            input, button { width: 100%; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #28A745; background: #111; color: white; box-sizing: border-box; }
+            input, select, button { width: 100%; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #28A745; background: #111; color: white; box-sizing: border-box; }
             button { background: #28A745; color: black; font-weight: bold; cursor: pointer; }
         </style>
     </head>
@@ -54,13 +56,13 @@ def admin():
             <input type="text" name="name" placeholder="Full Name" required>
             <input type="text" name="title" placeholder="Job Title" required>
             <input type="text" name="company" placeholder="Organization" required>
-            <select name="status" style="width:100%; padding:15px; background:#111; color:white; border:1px solid #28A745; border-radius:8px;">
+            <select name="status">
                 <option value="Verified">Verified</option>
                 <option value="Pending">Pending</option>
             </select>
             <button type="submit">ADD TO DATABASE</button>
         </form>
-        <br><a href="/" style="color: #666; text-decoration: none;">View Public Site</a>
+        <br><a href="/" style="color: #666; text-decoration: none;">← Back to Site</a>
     </body>
     </html>
     '''
