@@ -3,120 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthVault | Private Banking</title>
+    <title>WealthVault | Private</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap');
         
         body { 
-            background-color: #08090a;
+            background: radial-gradient(circle at top, #14161a 0%, #08090a 100%);
             color: #ffffff; 
             font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-image: radial-gradient(circle at 50% -20%, #1c2127 0%, #08090a 60%);
+            margin: 0; padding: 20px; 
+            display: flex; flex-direction: column; align-items: center;
             min-height: 100vh;
         }
 
-        /* NAVIGATION */
-        .nav-bar { 
-            width: 100%; 
-            max-width: 480px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 30px;
-        }
-        .logo { font-weight: 800; font-size: 20px; color: #f0b90b; letter-spacing: -1px; }
-        .notification-bell { background: #1e2329; padding: 10px; border-radius: 12px; font-size: 18px; cursor: pointer; }
+        /* HEADER & LOGO */
+        .header { width: 100%; max-width: 480px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .logo { font-weight: 800; font-size: 22px; color: #F0B90B; text-shadow: 0 0 15px rgba(240, 185, 11, 0.3); }
 
-        /* HERO SUMMARY CARD */
+        /* THE GLOWING SUMMARY CARD */
         .summary-card {
-            width: 100%;
-            max-width: 480px;
-            background: rgba(30, 35, 41, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 35px;
-            box-sizing: border-box;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            width: 100%; max-width: 480px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            padding: 30px; border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 40px; box-sizing: border-box;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        .summary-label { font-size: 11px; color: #848e9c; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
-        .summary-value { font-size: 38px; font-weight: 700; margin: 8px 0; font-family: 'JetBrains Mono', monospace; }
-        .growth-pill { 
-            display: inline-flex;
-            align-items: center;
-            background: rgba(0, 192, 135, 0.15);
-            color: #00c087;
-            padding: 6px 12px;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 700;
+        .summary-label { font-size: 11px; color: #848e9c; text-transform: uppercase; letter-spacing: 2px; }
+        .summary-value { 
+            font-size: 36px; font-weight: 700; margin: 10px 0; 
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(to bottom, #fff, #848e9c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+        .growth-pill { color: #00FFA3; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
 
-        /* LIST SECTION */
-        .section-title { width: 100%; max-width: 480px; margin-bottom: 15px; font-size: 14px; color: #848e9c; font-weight: 600; }
-
+        /* ASSET CARDS */
         .asset-card {
-            width: 100%;
-            max-width: 480px;
-            background: #121418;
-            border-radius: 20px;
-            padding: 18px 22px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            border: 1px solid transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%; max-width: 480px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px; padding: 18px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s ease;
         }
-        .asset-card:hover { border-color: #f0b90b; background: #1a1d23; transform: translateY(-2px); }
+        .asset-card:hover { 
+            background: rgba(255, 255, 255, 0.05); 
+            border-color: #F0B90B;
+            box-shadow: 0 0 20px rgba(240, 185, 11, 0.1);
+        }
 
-        .asset-info { display: flex; align-items: center; }
-        .asset-icon { width: 44px; height: 44px; background: #1e2329; border-radius: 14px; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #f0b90b; }
-        
-        .asset-details .name { font-weight: 700; font-size: 16px; display: block; }
-        .asset-details .desc { font-size: 12px; color: #848e9c; margin-top: 2px; }
+        .asset-left { display: flex; align-items: center; }
+        .asset-icon { 
+            width: 48px; height: 48px; background: #1e2329; 
+            border-radius: 16px; margin-right: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: #F0B90B; font-weight: 800; border: 1px solid rgba(240, 185, 11, 0.2);
+        }
 
-        .asset-pricing { text-align: right; }
-        .price { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; display: block; }
-        .change { font-size: 12px; font-weight: 700; margin-top: 4px; display: block; }
-        
-        .up { color: #00c087; }
-        .down { color: #f6465d; }
+        .asset-name { font-weight: 700; font-size: 16px; display: block; }
+        .asset-desc { font-size: 12px; color: #5e6673; }
 
-        .admin-footer { margin-top: 40px; opacity: 0.4; font-size: 11px; text-decoration: none; color: white; letter-spacing: 1px; }
+        .asset-right { text-align: right; }
+        .price { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: #fff; }
+        .change { font-size: 12px; font-weight: 800; margin-top: 4px; display: block; }
+
+        .up { color: #00FFA3; text-shadow: 0 0 10px rgba(0, 255, 163, 0.3); }
+        .down { color: #FF3B61; text-shadow: 0 0 10px rgba(255, 59, 97, 0.3); }
     </style>
 </head>
 <body>
-    <div class="nav-bar">
-        <div class="logo">WEALTH<span style="color:#fff">VAULT</span></div>
-        <div class="notification-bell">🔔</div>
+    <div class="header">
+        <div class="logo">WealthVault.</div>
+        <div style="font-size: 20px; opacity: 0.7;">🔒</div>
     </div>
 
     <div class="summary-card">
-        <div class="summary-label">Total Net Worth</div>
+        <div class="summary-label">Total Portfolio Value</div>
         <div class="summary-value">$1,382,920.50</div>
-        <div class="growth-pill">▲ +8.2% ($104,200)</div>
+        <div class="growth-pill">▲ +8.2% <span style="opacity:0.5; font-weight:400;">$104,200 today</span></div>
     </div>
-
-    <div class="section-title">PORTFOLIO HOLDINGS</div>
 
     {% for lead in leads %}
     <div class="asset-card">
-        <div class="asset-info">
+        <div class="asset-left">
             <div class="asset-icon">{{ lead.Name[0] }}</div>
-            <div class="asset-details">
-                <span class="name">{{ lead.Name }}</span>
-                <span class="desc">{{ lead.Title }}</span>
+            <div>
+                <span class="asset-name">{{ lead.Name }}</span>
+                <span class="asset-desc">{{ lead.Title }}</span>
             </div>
         </div>
-        <div class="asset-pricing">
+        <div class="asset-right">
             <span class="price">{{ lead.Company }}</span>
             <span class="change {% if '+' in lead.Status %}up{% else %}down{% endif %}">
                 {{ lead.Status }}
@@ -124,7 +103,5 @@
         </div>
     </div>
     {% endfor %}
-
-    <a href="/admin_portal_77" class="admin-footer">SYSTEM ACCESS • V1.4</a>
 </body>
 </html>
