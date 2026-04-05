@@ -6,28 +6,110 @@
     <title>LeadVault Pro | HUD</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;500&display=swap');
-        body { background: #000; color: #00d2ff; font-family: 'Roboto Mono', monospace; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; overflow-x: hidden; }
         
-        /* SCANNING ANIMATION */
-        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: rgba(0, 210, 255, 0.2); box-shadow: 0 0 15px #00d2ff; animation: scan 4s linear infinite; z-index: 10; pointer-events: none; }
+        body { 
+            background: #020202; 
+            color: #D4AF37; 
+            font-family: 'Roboto Mono', monospace; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+            overflow-x: hidden; 
+        }
+
+        /* WARM GOLD SCANNING ANIMATION */
+        body::after { 
+            content: ""; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 2px; 
+            background: rgba(212, 175, 55, 0.4); 
+            box-shadow: 0 0 15px #FFD700; 
+            animation: scan 4s linear infinite; 
+            z-index: 10; 
+            pointer-events: none; 
+        }
         @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
-        
-        h1 { font-size: 20px; letter-spacing: 5px; margin-top: 30px; border-bottom: 1px solid #00d2ff; padding-bottom: 10px; text-shadow: 0 0 10px #00d2ff; text-transform: uppercase; }
-        
-        .search-box { width: 100%; max-width: 380px; margin-bottom: 30px; }
-        input { width: 100%; padding: 12px; background: transparent; border: 1px solid #00d2ff; color: #00d2ff; font-family: 'Roboto Mono', monospace; outline: none; box-sizing: border-box; text-transform: uppercase; font-size: 12px; }
 
-        .card { width: 100%; max-width: 380px; background: rgba(0, 210, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.2); padding: 20px; margin-bottom: 20px; position: relative; box-sizing: border-box; }
-        .card::before { content: ""; position: absolute; top: -2px; left: -2px; width: 15px; height: 15px; border-top: 2px solid #00d2ff; border-left: 2px solid #00d2ff; }
-        .card::after { content: ""; position: absolute; bottom: -2px; right: -2px; width: 15px; height: 15px; border-bottom: 2px solid #00d2ff; border-right: 2px solid #00d2ff; }
-        
-        .status { font-size: 9px; margin-bottom: 10px; color: #00ff88; font-weight: bold; }
-        .name { font-size: 18px; font-weight: 500; margin-bottom: 5px; display: block; }
-        .details { color: rgba(0, 210, 255, 0.6); font-size: 12px; line-height: 1.5; }
+        /* GRID BACKGROUND */
+        body::before { 
+            content: ""; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px); 
+            background-size: 20px 20px; 
+            z-index: -1; 
+        }
 
-        /* SALES SECTION */
-        .sales-footer { width: 100%; max-width: 380px; margin-top: 40px; padding: 20px; border: 1px dashed #00ff88; text-align: center; background: rgba(0, 255, 136, 0.05); }
-        .buy-btn { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #00ff88; color: #000; text-decoration: none; font-weight: bold; font-size: 14px; border-radius: 2px; }
+        /* HEADER */
+        h1 { 
+            font-size: 20px; 
+            letter-spacing: 5px; 
+            margin-top: 30px; 
+            border-bottom: 2px solid #D4AF37; 
+            padding-bottom: 10px; 
+            text-shadow: 0 0 10px #FFD700; 
+            text-transform: uppercase; 
+            color: #FFD700; 
+        }
+
+        /* SEARCH BOX */
+        .search-box { width: 100%; max-width: 380px; margin-bottom: 40px; }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            background: rgba(212, 175, 55, 0.05); 
+            border: 1px solid #D4AF37; 
+            color: #FFD700; 
+            font-family: 'Roboto Mono', monospace; 
+            outline: none; 
+            box-sizing: border-box; 
+            text-transform: uppercase; 
+            font-size: 12px; 
+        }
+        input::placeholder { color: rgba(212, 175, 55, 0.4); }
+
+        /* LEAD CARD */
+        .card { 
+            width: 100%; 
+            max-width: 380px; 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(2, 2, 2, 0.5) 100%); 
+            border: 1px solid rgba(212, 175, 55, 0.3); 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            position: relative; 
+            box-sizing: border-box; 
+            transition: all 0.3s ease; 
+        }
+        .card:hover { 
+            border: 1px solid #FFD700; 
+            background: rgba(212, 175, 55, 0.1); 
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); 
+        }
+
+        /* GILDED CORNERS */
+        .card::before { content: ""; position: absolute; top: -2px; left: -2px; width: 15px; height: 15px; border-top: 2px solid #FFD700; border-left: 2px solid #FFD700; }
+        .card::after { content: ""; position: absolute; bottom: -2px; right: -2px; width: 15px; height: 15px; border-bottom: 2px solid #FFD700; border-right: 2px solid #FFD700; }
+
+        /* DETAILS */
+        .status { font-size: 9px; margin-bottom: 10px; color: #D4AF37; font-weight: bold; }
+        .name { 
+            font-size: 18px; 
+            font-weight: 500; 
+            margin-bottom: 5px; 
+            display: block; 
+            color: #FFD700; 
+            text-shadow: 0 0 3px #FFD700; 
+        }
+        .details { color: rgba(212, 175, 55, 0.7); font-size: 12px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -44,13 +126,5 @@
         <div class="details">POS: {{ lead.Title }}<br>ORG: {{ lead.Company }}</div>
     </div>
     {% endfor %}
-
-    <div class="sales-footer">
-        <div style="color: #00ff88; font-size: 12px;">ASSET FOR SALE: LEADVAULT_PRO_V1</div>
-        <div style="color: #fff; font-size: 11px; margin-top: 5px;">Includes source code, database, and hosting.</div>
-        <a href="mailto:your-email@example.com" class="buy-btn">ENQUIRE FOR PURCHASE</a>
-    </div>
-
-    <div style="font-size: 10px; color: rgba(0, 210, 255, 0.2); margin-top: 30px;">SECURE_TERMINAL_V4.0</div>
 </body>
 </html>
