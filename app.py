@@ -8,7 +8,7 @@ def get_leads(query=None):
     leads = []
     if not os.path.exists('leads.csv'):
         return leads
-    with open('leads.csv', mode='r') as f:
+    with open('leads.csv', mode='r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
             if not query or query.lower() in row['Name'].lower() or query.lower() in row['Company'].lower():
@@ -17,9 +17,12 @@ def get_leads(query=None):
 
 @app.route('/')
 def home():
-    search_query = request.args.get('search')
-    results = get_leads(search_query)
-    return render_template('index.html', leads=results, query=search_query)
+    try:
+        search_query = request.args.get('search')
+        results = get_leads(search_query)
+        return render_template('index.html', leads=results, query=search_query)
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
