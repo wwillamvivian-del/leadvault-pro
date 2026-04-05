@@ -3,101 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthVault | Private</title>
+    <title>WealthVault | Dashboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
         body { 
-            background: radial-gradient(circle at top, #14161a 0%, #08090a 100%);
+            background: #000000; /* Pure Black like Render */
             color: #ffffff; 
             font-family: 'Inter', sans-serif; 
             margin: 0; padding: 20px; 
             display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh;
         }
 
-        /* HEADER & LOGO */
-        .header { width: 100%; max-width: 480px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .logo { font-weight: 800; font-size: 22px; color: #F0B90B; text-shadow: 0 0 15px rgba(240, 185, 11, 0.3); }
+        /* TOP NAVIGATION */
+        .nav { width: 100%; max-width: 500px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; }
+        .logo span { color: #a855f7; } /* Render Purple */
 
-        /* THE GLOWING SUMMARY CARD */
-        .summary-card {
-            width: 100%; max-width: 480px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            padding: 30px; border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 40px; box-sizing: border-box;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        /* MAIN PORTFOLIO CARD */
+        .hero-card {
+            width: 100%; max-width: 500px;
+            background: #000000;
+            border: 1px solid #1a1a1a;
+            padding: 30px; border-radius: 12px;
+            margin-bottom: 40px;
+            box-sizing: border-box;
         }
-        .summary-label { font-size: 11px; color: #848e9c; text-transform: uppercase; letter-spacing: 2px; }
-        .summary-value { 
-            font-size: 36px; font-weight: 700; margin: 10px 0; 
-            font-family: 'JetBrains Mono', monospace;
-            background: linear-gradient(to bottom, #fff, #848e9c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .value { font-size: 38px; font-weight: 700; margin: 12px 0; letter-spacing: -1px; }
+        .status-pill { 
+            display: inline-block; background: rgba(0, 255, 163, 0.1); 
+            color: #00ffa3; padding: 4px 12px; border-radius: 100px; font-size: 13px; font-weight: 600;
         }
-        .growth-pill { color: #00FFA3; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
 
-        /* ASSET CARDS */
-        .asset-card {
-            width: 100%; max-width: 480px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 24px; padding: 18px; margin-bottom: 12px;
+        /* ASSET LIST (Render Style) */
+        .asset-row {
+            width: 100%; max-width: 500px;
             display: flex; justify-content: space-between; align-items: center;
-            box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: 0.3s ease;
+            padding: 16px 0; border-bottom: 1px solid #111;
         }
-        .asset-card:hover { 
-            background: rgba(255, 255, 255, 0.05); 
-            border-color: #F0B90B;
-            box-shadow: 0 0 20px rgba(240, 185, 11, 0.1);
+        .asset-name { font-weight: 600; font-size: 16px; color: #fff; }
+        .asset-sub { font-size: 13px; color: #666; margin-top: 2px; }
+        .asset-price { text-align: right; font-weight: 600; font-size: 15px; }
+        .asset-change { font-size: 12px; font-weight: 700; display: block; margin-top: 4px; }
+        
+        .up { color: #00ffa3; }
+        .down { color: #ff3b61; }
+
+        /* BUTTON STYLE FROM SCREENSHOT */
+        .btn-secondary {
+            border: 1px solid #333; background: transparent; color: #fff;
+            padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none;
         }
-
-        .asset-left { display: flex; align-items: center; }
-        .asset-icon { 
-            width: 48px; height: 48px; background: #1e2329; 
-            border-radius: 16px; margin-right: 15px;
-            display: flex; align-items: center; justify-content: center;
-            color: #F0B90B; font-weight: 800; border: 1px solid rgba(240, 185, 11, 0.2);
-        }
-
-        .asset-name { font-weight: 700; font-size: 16px; display: block; }
-        .asset-desc { font-size: 12px; color: #5e6673; }
-
-        .asset-right { text-align: right; }
-        .price { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: #fff; }
-        .change { font-size: 12px; font-weight: 800; margin-top: 4px; display: block; }
-
-        .up { color: #00FFA3; text-shadow: 0 0 10px rgba(0, 255, 163, 0.3); }
-        .down { color: #FF3B61; text-shadow: 0 0 10px rgba(255, 59, 97, 0.3); }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">WealthVault.</div>
-        <div style="font-size: 20px; opacity: 0.7;">🔒</div>
+    <div class="nav">
+        <div class="logo">Wealth<span>Vault</span></div>
+        <a href="/login" class="btn-secondary">Sign In</a>
     </div>
 
-    <div class="summary-card">
-        <div class="summary-label">Total Portfolio Value</div>
-        <div class="summary-value">$1,382,920.50</div>
-        <div class="growth-pill">▲ +8.2% <span style="opacity:0.5; font-weight:400;">$104,200 today</span></div>
+    <div class="hero-card">
+        <div class="label">Total Assets Managed</div>
+        <div class="value">$1,382,920.50</div>
+        <div class="status-pill">● System Active</div>
+    </div>
+
+    <div style="width: 100%; max-width: 500px; margin-bottom: 10px; font-size: 13px; color: #444; font-weight: 700;">
+        ACTIVE PORTFOLIO
     </div>
 
     {% for lead in leads %}
-    <div class="asset-card">
-        <div class="asset-left">
-            <div class="asset-icon">{{ lead.Name[0] }}</div>
-            <div>
-                <span class="asset-name">{{ lead.Name }}</span>
-                <span class="asset-desc">{{ lead.Title }}</span>
-            </div>
+    <div class="asset-row">
+        <div>
+            <div class="asset-name">{{ lead.Name }}</div>
+            <div class="asset-sub">{{ lead.Title }}</div>
         </div>
-        <div class="asset-right">
-            <span class="price">{{ lead.Company }}</span>
-            <span class="change {% if '+' in lead.Status %}up{% else %}down{% endif %}">
+        <div class="asset-price">
+            {{ lead.Company }}
+            <span class="asset-change {% if '+' in lead.Status %}up{% else %}down{% endif %}">
                 {{ lead.Status }}
             </span>
         </div>
