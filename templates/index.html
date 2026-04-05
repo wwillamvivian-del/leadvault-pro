@@ -17,9 +17,41 @@
         
         .summary-card { 
             background: linear-gradient(145deg, #0a0a0a, #111); border: 1px solid #1a1a1a; 
-            padding: 30px; border-radius: 20px; margin-bottom: 20px;
+            padding: 30px; border-radius: 20px; margin-bottom: 25px;
         }
         .net-worth { font-size: 38px; font-weight: 700; margin: 10px 0; letter-spacing: -1.5px; }
+
+        /* ACTION BUTTONS GRID */
+        .action-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .action-item {
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+        }
+        .action-circle {
+            width: 50px;
+            height: 50px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        .action-circle:hover {
+            border-color: #a855f7;
+            background: #1a1025;
+            transform: translateY(-3px);
+        }
+        .action-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 1px; }
         
         .section-label { color: #444; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin: 30px 0 15px; text-transform: uppercase; }
         
@@ -29,9 +61,7 @@
         }
         .row-info h3 { margin: 0; font-size: 15px; font-weight: 600; }
         .row-info p { margin: 2px 0 0; color: #555; font-size: 12px; }
-        
         .transfer-in { color: #00ffa3; font-weight: 700; }
-        .transfer-icon { width: 35px; height: 35px; background: #111; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 12px; border: 1px solid #222; }
 
         .logout { display: block; text-align: center; margin-top: 40px; color: #333; text-decoration: none; font-size: 13px; }
     </style>
@@ -39,7 +69,7 @@
 <body>
     <div class="header">
         <div class="greeting">Good evening, <span>Partner</span></div>
-        <div style="font-size: 18px">⚙️</div>
+        <div style="font-size: 18px">🛡️</div>
     </div>
 
     <div class="container">
@@ -47,6 +77,25 @@
             <div style="color: #666; font-size: 12px; font-weight: 600;">TOTAL ASSETS</div>
             <div class="net-worth">$1,382,920.50</div>
             <div style="color: #00ffa3; font-size: 12px; font-weight: 700;">▲ 8.2% Active Growth</div>
+        </div>
+
+        <div class="action-bar">
+            <a href="#" class="action-item">
+                <div class="action-circle">＋</div>
+                <div class="action-label">Buy</div>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-circle">－</div>
+                <div class="action-label">Sell</div>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-circle">↑</div>
+                <div class="action-label">Send</div>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-circle">↓</div>
+                <div class="action-label">Receive</div>
+            </a>
         </div>
 
         <div class="section-label">Active Portfolio</div>
@@ -64,27 +113,12 @@
         {% endfor %}
 
         <div class="section-label">Recent Transfers</div>
-        
         <div class="row">
-            <div style="display: flex; align-items: center;">
-                <div class="transfer-icon">📥</div>
-                <div class="row-info">
-                    <h3>Internal Deposit</h3>
-                    <p>Yesterday, 4:12 PM</p>
-                </div>
+            <div class="row-info">
+                <h3>Internal Deposit</h3>
+                <p>Yesterday, 4:12 PM</p>
             </div>
             <div class="transfer-in">+$12,500.00</div>
-        </div>
-
-        <div class="row">
-            <div style="display: flex; align-items: center;">
-                <div class="transfer-icon">💳</div>
-                <div class="row-info">
-                    <h3>Dividend Payout</h3>
-                    <p>April 2, 2026</p>
-                </div>
-            </div>
-            <div class="transfer-in">+$3,240.12</div>
         </div>
 
         <a href="/logout" class="logout">Terminate Secure Session</a>
