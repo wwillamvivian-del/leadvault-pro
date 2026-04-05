@@ -1,70 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthVault | Private</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { 
-            background: #000; color: #fff; font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center;
-        }
-
-        /* UPWORK-STYLE HEADER */
-        .top-nav {
-            width: 100%; padding: 15px 20px; box-sizing: border-box;
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
-            border-bottom: 1px solid #1a1a1a; z-index: 100;
-        }
-        .greeting { font-size: 18px; font-weight: 700; color: #fff; }
-        .greeting span { color: #a855f7; }
-
-        .nav-icons { display: flex; gap: 20px; align-items: center; }
-        .icon-circle { width: 35px; height: 35px; background: #111; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #222; }
-
-        /* HERO SECTION */
-        .hero {
-            padding: 60px 25px; text-align: center; max-width: 500px;
-        }
-        .search-bar {
-            background: #111; border: 1px solid #222; border-radius: 100px;
-            padding: 12px 20px; margin: 30px 0; display: flex; align-items: center;
-            color: #666; font-size: 14px; text-align: left;
-        }
-
-        .hero-title { 
-            font-size: 36px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 15px;
-            line-height: 1.1;
-        }
-        .hero-sub { color: #888; font-size: 16px; margin-bottom: 35px; line-height: 1.5; }
-
-        .btn-main { 
-            background: #fff; color: #000; padding: 18px 40px; border-radius: 100px; 
-            font-weight: 700; text-decoration: none; display: inline-block;
-            box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; }
+        .nav { padding: 20px; display: flex; justify-content: space-between; border-bottom: 1px solid #1a1a1a; }
+        .hero { padding: 80px 20px; text-align: center; }
+        .btn { background: #fff; color: #000; padding: 15px 30px; border-radius: 100px; text-decoration: none; font-weight: 700; }
+        .upwork-green { color: #a855f7; }
     </style>
 </head>
 <body>
-    <div class="top-nav">
-        <div class="greeting">Good evening, <span>Partner</span></div>
-        <div class="nav-icons">
-            <div class="icon-circle">🔔</div>
-            <div class="icon-circle">👤</div>
-        </div>
+    <div class="nav">
+        <div style="font-weight:700">Good evening, <span class="upwork-green">Partner</span></div>
+        <div>🔔</div>
     </div>
-
     <div class="hero">
-        <div class="hero-title">Your fastest path to production.</div>
-        <div class="hero-sub">Secure infrastructure to scale your assets from your first dollar to your billionth.</div>
-        
-        <div class="search-bar">
-            🔍 Search for assets or markets...
-        </div>
-
-        <a href="/login" class="btn-main">Sign in to Vault</a>
+        <h1 style="font-size:40px; letter-spacing:-2px">Your fastest path <br>to production.</h1>
+        <p style="color:#888; margin-bottom:40px">Secure infrastructure for your private assets.</p>
+        <a href="/login" class="btn">Sign in to Vault</a>
     </div>
 </body>
 </html>
-

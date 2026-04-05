@@ -1,91 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthVault | Dashboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        
-        body { 
-            background: #000000; /* Pure Black like Render */
-            color: #ffffff; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; padding: 20px; 
-            display: flex; flex-direction: column; align-items: center;
-        }
-
-        /* TOP NAVIGATION */
-        .nav { width: 100%; max-width: 500px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; }
-        .logo span { color: #a855f7; } /* Render Purple */
-
-        /* MAIN PORTFOLIO CARD */
-        .hero-card {
-            width: 100%; max-width: 500px;
-            background: #000000;
-            border: 1px solid #1a1a1a;
-            padding: 30px; border-radius: 12px;
-            margin-bottom: 40px;
-            box-sizing: border-box;
-        }
-        .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-        .value { font-size: 38px; font-weight: 700; margin: 12px 0; letter-spacing: -1px; }
-        .status-pill { 
-            display: inline-block; background: rgba(0, 255, 163, 0.1); 
-            color: #00ffa3; padding: 4px 12px; border-radius: 100px; font-size: 13px; font-weight: 600;
-        }
-
-        /* ASSET LIST (Render Style) */
-        .asset-row {
-            width: 100%; max-width: 500px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 0; border-bottom: 1px solid #111;
-        }
-        .asset-name { font-weight: 600; font-size: 16px; color: #fff; }
-        .asset-sub { font-size: 13px; color: #666; margin-top: 2px; }
-        .asset-price { text-align: right; font-weight: 600; font-size: 15px; }
-        .asset-change { font-size: 12px; font-weight: 700; display: block; margin-top: 4px; }
-        
-        .up { color: #00ffa3; }
-        .down { color: #ff3b61; }
-
-        /* BUTTON STYLE FROM SCREENSHOT */
-        .btn-secondary {
-            border: 1px solid #333; background: transparent; color: #fff;
-            padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none;
-        }
+        body { background: #000; color: #fff; font-family: sans-serif; padding: 20px; }
+        .card { background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #1a1a1a; }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <div class="logo">Wealth<span>Vault</span></div>
-        <a href="/login" class="btn-secondary">Sign In</a>
+    <div class="card">
+        <p style="color:#888">TOTAL NET WORTH</p>
+        <h1>$1,382,920.50</h1>
     </div>
-
-    <div class="hero-card">
-        <div class="label">Total Assets Managed</div>
-        <div class="value">$1,382,920.50</div>
-        <div class="status-pill">● System Active</div>
-    </div>
-
-    <div style="width: 100%; max-width: 500px; margin-bottom: 10px; font-size: 13px; color: #444; font-weight: 700;">
-        ACTIVE PORTFOLIO
-    </div>
-
-    {% for lead in leads %}
-    <div class="asset-row">
-        <div>
-            <div class="asset-name">{{ lead.Name }}</div>
-            <div class="asset-sub">{{ lead.Title }}</div>
-        </div>
-        <div class="asset-price">
-            {{ lead.Company }}
-            <span class="asset-change {% if '+' in lead.Status %}up{% else %}down{% endif %}">
-                {{ lead.Status }}
-            </span>
-        </div>
-    </div>
-    {% endfor %}
+    <h3>Private Holdings</h3>
+    {% for lead in leads %}<p>{{ lead.Name }}: {{ lead.Company }}</p>{% endfor %}
+    <a href="/logout" style="color:#a855f7">Log Out</a>
 </body>
 </html>
