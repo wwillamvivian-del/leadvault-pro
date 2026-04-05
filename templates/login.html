@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | WealthVault</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { 
+            background-color: #000; color: #fff; font-family: 'Inter', sans-serif;
+            display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;
+        }
+        .login-card {
+            width: 100%; max-width: 380px; padding: 40px;
+            background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0, 255, 163, 0.05); text-align: center;
+        }
+        .logo { font-weight: 700; font-size: 24px; margin-bottom: 30px; letter-spacing: -1px; }
+        input {
+            width: 100%; padding: 12px; margin: 10px 0; background: #000;
+            border: 1px solid #333; border-radius: 6px; color: #fff; box-sizing: border-box;
+        }
+        input:focus { border-color: #00ffa3; outline: none; }
+        button {
+            width: 100%; padding: 12px; margin-top: 20px; background: #fff;
+            color: #000; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover { background: #00ffa3; }
+        .error { color: #ff3b61; font-size: 13px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo">WealthVault.</div>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Continue</button>
+        </form>
+        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    </div>
+</body>
+</html>
