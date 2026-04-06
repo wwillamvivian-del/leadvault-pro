@@ -22,8 +22,6 @@ def load_user(user_id):
     return db.session.get(User, int(user_id))
 
 @app.route('/')
-@app.route('/index')
-@login_required
 def index():
     return render_template('index.html')
 
@@ -35,16 +33,6 @@ def login():
             login_user(user)
             return redirect(url_for('index'))
     return render_template('login.html')
-
-@app.route('/buy', methods=['POST'])
-@login_required
-def buy():
-    try:
-        current_user.balance += 1000
-        db.session.commit()
-    except:
-        db.session.rollback()
-    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     with app.app_context():
