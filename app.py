@@ -43,6 +43,16 @@ def buy():
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/deposit', methods=['GET', 'POST'])
+@login_required
+def deposit():
+    if request.method == 'POST':
+        amount = float(request.form.get('amount', 0))
+        current_user.balance += amount
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('deposit.html')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
