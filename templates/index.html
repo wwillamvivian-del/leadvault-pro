@@ -2,161 +2,113 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla Investment | Cyber Dashboard</title>
+    <title>Tesla Investment | Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
         body { 
-            background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%); /* SILVER-WHITE BASE */
-            color: #1a1a1a; /* Darker text for contrast */
-            font-family: 'Inter', sans-serif; 
-            margin: 0; padding: 0;
-            overflow-x: hidden;
+            background: #f8fafd; /* Clean, slightly blue-tinted silver */
+            color: #1a1a1a; font-family: 'Inter', sans-serif; margin: 0; padding: 0;
         }
         
         .header { 
-            padding: 20px; display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; 
-            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(15px); z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
+            background: #fff; border-bottom: 1px solid #eee;
         }
-        .greeting span { color: #8e44ad; font-weight: 700; text-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
+        .greeting span { color: #2b61ff; font-weight: 700; }
 
-        .container { padding: 25px; max-width: 500px; margin: auto; }
+        .container { padding: 20px; max-width: 480px; margin: auto; text-align: center; }
         
-        /* SHINY, GLOWING NET WORTH CARD */
-        .summary-card { 
-            background: rgba(255, 255, 255, 0.2); 
-            border: 1px solid rgba(255, 255, 255, 0.6); 
-            padding: 30px; border-radius: 20px; margin-bottom: 25px;
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.6), 0 0 15px rgba(168, 85, 247, 0.1); /* Brighter Glow */
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
-        }
+        /* CENTERED COMPACT BALANCE */
+        .balance-label { color: #666; font-size: 13px; font-weight: 500; margin-top: 10px; }
         .net-worth { 
-            font-size: 38px; font-weight: 700; margin: 10px 0; letter-spacing: -1.5px;
-            color: #000;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 5px rgba(168, 85, 247, 0.4);
+            font-size: 32px; font-weight: 700; margin: 5px 0 25px; color: #000;
+            letter-spacing: -1px;
         }
 
-        /* SILVER ACTION BUTTONS GRID */
+        /* THE BLUE ACTION CIRCLES */
         .action-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
+            display: flex; justify-content: center; gap: 20px; margin-bottom: 35px;
         }
-        .action-item {
-            text-align: center;
-            text-decoration: none;
-            color: #222;
-        }
+        .action-item { text-decoration: none; color: #1a1a1a; width: 60px; }
         .action-circle {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, #ffffff, #e0e0e0); /* SHINY METALLIC */
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 8px;
-            font-size: 20px;
-            font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.6);
+            width: 48px; height: 48px;
+            background: #2b61ff; /* RADIANT BLUE */
+            color: #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 8px; font-size: 20px; font-weight: 600;
+            box-shadow: 0 4px 12px rgba(43, 97, 255, 0.3);
+            transition: 0.2s;
         }
-        .action-circle:hover {
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); /* Purple Glow on Hover */
-            transform: translateY(-4px);
-        }
-        .action-label { font-size: 11px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+        .action-circle:active { transform: scale(0.9); }
+        .action-label { font-size: 12px; font-weight: 500; color: #444; }
         
-        .section-label { color: #888; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; margin: 30px 0 15px; text-transform: uppercase; }
+        /* GLOWING SILVER ASSET ROWS */
+        .section-header { text-align: left; font-size: 18px; font-weight: 700; margin-bottom: 15px; padding-left: 5px; }
         
-        /* CYBER-METALLIC ROW DESIGN */
         .row {
-            background: rgba(255, 255, 255, 0.2); 
-            border: 1px solid rgba(255, 255, 255, 0.5); 
-            padding: 20px; border-radius: 16px;
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
-            transition: 0.3s;
+            background: #fff; border: 1px solid #f0f0f0; padding: 16px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
-        .row:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
-            border-color: rgba(168, 85, 247, 0.3);
-        }
-        .row-info h3 { margin: 0; font-size: 16px; font-weight: 600; color: #000; }
-        .row-info p { margin: 2px 0 0; color: #666; font-size: 13px; }
+        .row-info { text-align: left; display: flex; align-items: center; gap: 12px; }
+        .row-info h3 { margin: 0; font-size: 15px; color: #000; }
+        .row-info p { margin: 0; color: #888; font-size: 12px; }
         
-        .growth { color: #2ecc71; font-weight: 700; text-shadow: 0 0 8px rgba(46, 204, 113, 0.4); }
+        .growth-tag { color: #098551; font-weight: 600; font-size: 13px; }
+        .asset-price { font-weight: 600; font-size: 15px; color: #000; margin-bottom: 2px; }
 
-        .transfer-in { 
-            color: #2ecc71; font-weight: 700; font-size: 15px;
-            text-shadow: 0 0 8px rgba(46, 204, 113, 0.4);
-        }
-
-        .logout { display: block; text-align: center; margin-top: 50px; color: #999; text-decoration: none; font-size: 13px; }
+        .footer-nav { border-top: 1px solid #eee; padding: 15px; display: flex; justify-content: space-around; background: #fff; position: fixed; bottom: 0; width: 100%; max-width: 480px; }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="greeting">Good evening, <span>Partner</span></div>
-        <div style="font-size: 18px; color: #a855f7;">🔒</div>
+        <div style="font-size: 20px;">☰</div>
+        <div class="greeting">Tesla <span>Investment</span></div>
+        <div style="font-size: 20px;">🔔</div>
     </div>
 
     <div class="container">
-        <div class="summary-card">
-            <div style="color: #666; font-size: 12px; font-weight: 600;">ACTIVE PORTFOLIO VALUE</div>
-            <div class="net-worth">$1,382,920.50</div>
-            <div class="growth">▲ 8.2% Growth</div>
-        </div>
+        <div class="balance-label">Your balance</div>
+        <div class="net-worth">$1,382,920.50</div>
 
         <div class="action-bar">
-            <a href="#" class="action-item">
+            <div class="action-item">
                 <div class="action-circle">＋</div>
                 <div class="action-label">Buy</div>
-            </a>
-            <a href="#" class="action-item">
+            </div>
+            <div class="action-item">
                 <div class="action-circle">－</div>
                 <div class="action-label">Sell</div>
-            </a>
-            <a href="#" class="action-item">
+            </div>
+            <div class="action-item">
                 <div class="action-circle">↑</div>
                 <div class="action-label">Send</div>
-            </a>
-            <a href="#" class="action-item">
+            </div>
+            <div class="action-item">
                 <div class="action-circle">↓</div>
                 <div class="action-label">Receive</div>
-            </a>
+            </div>
         </div>
 
-        <div class="section-label">Investment Holdings</div>
+        <div class="section-header">Portfolio</div>
         {% for lead in leads %}
         <div class="row">
             <div class="row-info">
-                <h3>{{ lead.Name }}</h3>
-                <p>{{ lead.Title }}</p>
+                <div style="width: 32px; height: 32px; background: #f0f3ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">💎</div>
+                <div>
+                    <h3>{{ lead.Name }}</h3>
+                    <p>{{ lead.Title }}</p>
+                </div>
             </div>
             <div style="text-align: right;">
-                <div style="font-weight: 700; color: #000;">{{ lead.Company }}</div>
-                <div class="growth">{{ lead.Status }}</div>
+                <div class="asset-price">{{ lead.Company }}</div>
+                <div class="growth-tag">{{ lead.Status }}</div>
             </div>
         </div>
         {% endfor %}
-
-        <div class="section-label">Recent Activity</div>
-        <div class="row">
-            <div class="row-info">
-                <h3>Tesla Dividend Payout</h3>
-                <p>Yesterday, 4:12 PM</p>
-            </div>
-            <div class="transfer-in">+$12,500.00</div>
-        </div>
-
-        <a href="/logout" class="logout">Securely Terminate Session</a>
+        
+        <div style="margin-bottom: 80px;"></div>
     </div>
 </body>
 </html>
