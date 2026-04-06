@@ -88,3 +88,23 @@ if __name__ == '__main__':
             db.session.add(admin)
             db.session.commit()
     app.run(debug=True, port=5000, host='0.0.0.0')
+@app.route('/deposit', methods=['GET', 'POST'])
+@login_required
+def deposit():
+    if request.method == 'POST':
+        amount = float(request.form.get('amount', 0))
+        current_user.balance += amount
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('deposit.html')
+
+@app.route('/withdraw', methods=['GET', 'POST'])
+@login_required
+def withdraw():
+    if request.method == 'POST':
+        amount = float(request.form.get('amount', 0))
+        if current_user.balance >= amount:
+            current_user.balance -= amount
+            db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('withdraw.html')
