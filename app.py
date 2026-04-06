@@ -25,7 +25,7 @@ def load_user(user_id):
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template('index.html', balance=current_user.balance)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -42,16 +42,6 @@ def buy():
     current_user.balance += 1000
     db.session.commit()
     return redirect(url_for('index'))
-
-@app.route('/deposit', methods=['GET', 'POST'])
-@login_required
-def deposit():
-    if request.method == 'POST':
-        amount = float(request.form.get('amount', 0))
-        current_user.balance += amount
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('deposit.html')
 
 if __name__ == '__main__':
     with app.app_context():
