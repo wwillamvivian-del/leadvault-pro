@@ -1,141 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthVault | Dashboard</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        body { 
-            background: #0d0d0d; /* DEEP OLED BLACK */
-            color: #ffffff; /* HIGH CONTRAST WHITE */
-            font-family: 'Inter', sans-serif; margin: 0; padding: 0;
-        }
-        
-        /* DARK MODE TOP NAVIGATION */
-        .header { 
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
-            background: rgba(13, 13, 13, 0.9); backdrop-filter: blur(10px);
-            border-bottom: 1px solid #1a1a1a; position: sticky; top: 0; z-index: 100;
-        }
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        .promo-pill { 
-            background: rgba(37, 99, 235, 0.1); color: #2b61ff; padding: 6px 12px; border-radius: 20px; 
-            font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 5px;
-            border: 1px solid rgba(43, 97, 255, 0.2);
-        }
-
-        .container { padding: 0 20px; max-width: 480px; margin: auto; }
-        
-        /* DARK MODE BALANCE AREA WITH SPARKLINE */
-        .balance-section { 
-            display: flex; justify-content: space-between; align-items: flex-end; 
-            margin: 20px 0 30px; text-align: left;
-        }
-        .balance-label { color: #888; font-size: 14px; font-weight: 500; margin-bottom: 5px; }
-        .net-worth { font-size: 34px; font-weight: 700; color: #fff; letter-spacing: -1px; }
-        
-        /* THE BLUE SPARKLINE ICON */
-        .sparkline { width: 100px; height: 40px; }
-
-        /* VIBRANT BLUE ACTION CIRCLES */
-        .action-bar { display: flex; justify-content: space-between; margin-bottom: 35px; padding: 0 5px; }
-        .action-item { text-align: center; text-decoration: none; width: 20%; }
-        .action-circle {
-            width: 52px; height: 52px; background: #2b61ff; color: #fff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;
-            font-size: 22px; transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(43, 97, 255, 0.3);
-        }
-        .action-label { font-size: 12px; font-weight: 500; color: #ccc; }
-        
-        /* OLED BLACK WATCHLIST STYLE */
-        .section-header { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #fff; }
-        .row {
-            padding: 16px 0; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #1a1a1a; /* Darker line for contrast */
-        }
-        .row-info { display: flex; align-items: center; gap: 15px; }
-        .icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
-        
-        .asset-name { font-weight: 700; font-size: 16px; margin: 0; color: #fff; }
-        .asset-ticker { color: #888; font-size: 13px; font-weight: 500; margin-top: 2px; }
-        
-        .asset-stats { text-align: right; }
-        .asset-price { font-weight: 600; font-size: 15px; margin-bottom: 4px; color: #fff; }
-        .growth-tag { color: #00ffa3; font-weight: 600; font-size: 13px; text-shadow: 0 0 8px rgba(0, 255, 163, 0.4); }
-
-        /* DARK MODE FOOTER NAVIGATION */
-        .footer-nav { 
-            position: fixed; bottom: 0; width: 100%; max-width: 480px; 
-            background: rgba(13, 13, 13, 0.95); backdrop-filter: blur(10px);
-            border-top: 1px solid #1a1a1a; padding: 15px 0; display: flex; 
-            justify-content: space-around; font-size: 20px; z-index: 100;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div style="font-size: 24px; color: #fff;">☰</div>
-        <div class="header-right">
-            <div class="promo-pill">🎁 Get $10</div>
-            <div style="font-size: 22px; color: #fff;">🔔</div>
+<form action="/buy" method="POST" id="buyForm">
+    <button type="submit" id="buyBtn" onclick="showProcessing()" 
+            class="flex flex-col items-center group">
+        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg group-active:scale-95 transition-all">
+            <span id="btnIcon" class="text-3xl text-white">+</span>
+            <div id="btnSpinner" class="hidden animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full"></div>
         </div>
-    </div>
+        <span class="text-xs mt-2 text-gray-400">Buy</span>
+    </button>
+</form>
 
-    <div class="container">
-        <div class="balance-section">
-            <div>
-                <div class="balance-label">Your balance</div>
-                <div class="net-worth">$1,382,920.50</div>
-            </div>
-            <svg class="sparkline" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 35C10 32 15 20 25 25C35 30 45 5 55 15C65 25 80 10 99 2" stroke="#2b61ff" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
-        </div>
+<div id="successPopup" class="hidden fixed top-10 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-full shadow-2xl font-bold animate-bounce">
+    ✅ $1,000.00 Deposit Confirmed!
+</div>
 
-        <div class="action-bar">
-            <div class="action-item"><div class="action-circle">＋</div><div class="action-label">Buy</div></div>
-            <div class="action-item"><div class="action-circle">－</div><div class="action-label">Sell</div></div>
-            <div class="action-item"><div class="action-circle">↑</div><div class="action-label">Send</div></div>
-            <div class="action-item"><div class="action-circle">↓</div><div class="action-label">Receive</div></div>
-            <div class="action-item"><div class="action-circle" style="font-size: 16px;">•••</div><div class="action-label">More</div></div>
-        </div>
+<script>
+function showProcessing() {
+    // Hide the '+' and show the spinner
+    document.getElementById('btnIcon').classList.add('hidden');
+    document.getElementById('btnSpinner').classList.remove('hidden');
+    
+    // Show the success popup
+    const popup = document.getElementById('successPopup');
+    popup.classList.remove('hidden');
+    
+    // Allow the form to submit after a tiny delay to show the effect
+    setTimeout(() => {
+        document.getElementById('buyForm').submit();
+    }, 800);
+}
+</script>
 
-        <div class="section-header">Watchlist</div>
-
-        <div class="row">
-            <div class="row-info">
-                <div class="icon" style="background:rgba(247, 147, 26, 0.1); color:#f7931a;">₿</div>
-                <div><p class="asset-name">Bitcoin</p><p class="asset-ticker">BTC</p></div>
-            </div>
-            <div class="asset-stats"><p class="asset-price">$68,432.10</p><p class="growth-tag">+3.77%</p></div>
-        </div>
-
-        <div class="row">
-            <div class="row-info">
-                <div class="icon" style="background:#0d1117; color:#fff;">⬢</div>
-                <div><p class="asset-name">Fetch.ai</p><p class="asset-ticker">FET</p></div>
-            </div>
-            <div class="asset-stats"><p class="asset-price">$2.45</p><p class="growth-tag">+4.10%</p></div>
-        </div>
-
-        <div class="row">
-            <div class="row-info">
-                <div class="icon" style="background:rgba(103, 58, 183, 0.1); color:#673ab7;">g</div>
-                <div><p class="asset-name">The Graph</p><p class="asset-ticker">GRT</p></div>
-            </div>
-            <div class="asset-stats"><p class="asset-price">$0.48</p><p class="growth-tag">+13.81%</p></div>
-        </div>
-
-        <div style="margin-bottom: 100px;"></div>
-    </div>
-
-    <div class="footer-nav">
-        <div style="color: #2b61ff;">🏠</div>
-        <div style="color: #666;">📊</div>
-        <div style="color: #666;">🔄</div>
-        <div style="color: #666;">👤</div>
-    </div>
-</body>
-</html>
