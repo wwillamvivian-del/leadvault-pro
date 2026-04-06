@@ -1,0 +1,32 @@
+<form action="/buy" method="POST" id="buyForm">
+    <button type="submit" id="buyBtn" onclick="showProcessing()" 
+            class="flex flex-col items-center group">
+        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg group-active:scale-95 transition-all">
+            <span id="btnIcon" class="text-3xl text-white">+</span>
+            <div id="btnSpinner" class="hidden animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full"></div>
+        </div>
+        <span class="text-xs mt-2 text-gray-400">Buy</span>
+    </button>
+</form>
+
+<div id="successPopup" class="hidden fixed top-10 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-full shadow-2xl font-bold animate-bounce">
+    ✅ $1,000.00 Deposit Confirmed!
+</div>
+
+<script>
+function showProcessing() {
+    // Hide the '+' and show the spinner
+    document.getElementById('btnIcon').classList.add('hidden');
+    document.getElementById('btnSpinner').classList.remove('hidden');
+    
+    // Show the success popup
+    const popup = document.getElementById('successPopup');
+    popup.classList.remove('hidden');
+    
+    // Allow the form to submit after a tiny delay to show the effect
+    setTimeout(() => {
+        document.getElementById('buyForm').submit();
+    }, 800);
+}
+</script>
+
